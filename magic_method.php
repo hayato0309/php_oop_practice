@@ -75,3 +75,36 @@ class SomeClass
         echo "staticBar called with arg '$value'", PHP_EOL;
     }
 }
+
+$obj = new SomeClass();
+$obj->foo = 10;   // set: foo setted to 10
+
+
+var_dump($obj->foo);
+// get: foo
+// int(10)
+
+
+var_dump(isset($obj->foo));
+// isset: foo
+// bool(true)
+
+var_dump(empty($obj->foo));
+// isset: foo
+// get: foo
+// bool(false)
+// empty()は、まずその変数がセットされているか調べ、セットされている場合はその中身が空でないかどうかをチェックする仕組みなので、
+// __isset()に続けて__get()も呼び出されていることがわかります。
+
+unset($obj->foo);
+var_dump(isset($obj->foo));
+// unset: foo
+// isset: foo
+// bool(false)
+
+$obj->bar('baz');
+SomeClass::staticBar('baz');
+// call: bar
+// bar called with arg 'baz'
+// callStaic: staticBar
+// staticBar called with arg 'baz'
